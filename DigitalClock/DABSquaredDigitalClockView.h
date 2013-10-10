@@ -10,9 +10,9 @@
 
 
 typedef enum {
-    DABSquaredAnalogClockViewOptionNone        = 1 << 0,
-    DABSquaredAnalogClockViewOptionShowTitle = 1 << 1, // shows the Titlelabel
-} DABSquaredAnalogClockViewOption;
+    DABSquaredDigitalClockViewOptionNone        = 1 << 0,
+    DABSquaredDigitalClockViewOptionShowTitle = 1 << 1, // shows the Titlelabel
+} DABSquaredDigitalClockViewOption;
 
 @interface DABSquaredDigitalClockView : UIView
 
@@ -22,7 +22,7 @@ typedef enum {
 @property (nonatomic, strong) NSString *clockTitle;
 
 - (id)initWithFrame:(CGRect)frame;
-- (id)initWithFrame:(CGRect)frame withOptions:(DABSquaredAnalogClockViewOption)options;
+- (id)initWithFrame:(CGRect)frame withOptions:(DABSquaredDigitalClockViewOption)options;
 - (void)start;
 - (void)stop;
 - (void)updateClockTime;

@@ -17,7 +17,7 @@
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
 
-@property (nonatomic, assign) DABSquaredAnalogClockViewOption options;
+@property (nonatomic, assign) DABSquaredDigitalClockViewOption options;
 
 @end
 
@@ -27,12 +27,12 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-  return [self initWithFrame:frame withOptions:DABSquaredAnalogClockViewOptionNone];
+  return [self initWithFrame:frame withOptions:DABSquaredDigitalClockViewOptionNone];
 }
 
 
 
-- (id)initWithFrame:(CGRect)frame withOptions:(DABSquaredAnalogClockViewOption)options
+- (id)initWithFrame:(CGRect)frame withOptions:(DABSquaredDigitalClockViewOption)options
 {
   self = [super initWithFrame:frame];
   if (self) {
@@ -46,7 +46,7 @@
       
     CGRect imageViewFrame;
     
-    if (DABSquaredAnalogClockViewOptionShowTitle & self.options) {      
+    if (DABSquaredDigitalClockViewOptionShowTitle & self.options) {
       _clockTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height-15, frame.size.width, 15)];
       [_clockTitleLabel setBackgroundColor:[UIColor clearColor]];
       [_clockTitleLabel setTextAlignment:NSTextAlignmentCenter];
@@ -70,7 +70,7 @@
 
 -(void)setClockTitle:(NSString *)clockTitle {
    _clockTitle = clockTitle;
-   if (DABSquaredAnalogClockViewOptionShowTitle & self.options) {
+   if (DABSquaredDigitalClockViewOptionShowTitle & self.options) {
      [self.clockTitleLabel setText:self.clockTitle];
    }
 }
@@ -80,7 +80,7 @@
         [_clockTitleLabel removeFromSuperview];
     }
    _clockTitleLabel = clockTitleLabel;
-  if (DABSquaredAnalogClockViewOptionShowTitle & self.options) {
+  if (DABSquaredDigitalClockViewOptionShowTitle & self.options) {
     CGRect clockViewViewFrame = CGRectMake(_clockTitleLabel.frame.size.height/2, 0, self.frame.size.width-_clockTitleLabel.frame.size.height, self.frame.size.height-_clockTitleLabel.frame.size.height);
       [_clockTitleLabel setFrame:clockViewViewFrame];
       [_clockTitleLabel removeFromSuperview];
@@ -95,7 +95,7 @@
     _clockLabel = clockLabel;
     CGRect imageViewFrame;
     
-    if (DABSquaredAnalogClockViewOptionShowTitle & self.options) {
+    if (DABSquaredDigitalClockViewOptionShowTitle & self.options) {
         imageViewFrame = CGRectMake(_clockTitleLabel.frame.size.height/2, 0, self.frame.size.width-_clockTitleLabel.frame.size.height, self.frame.size.height-_clockTitleLabel.frame.size.height);
     } else {
         imageViewFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
