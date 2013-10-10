@@ -27,5 +27,5 @@ typedef enum {
 - (void)stop;
 - (void)updateClockTime;
 - (void)updateClockWithTime:(NSDate *)time;
-
+- (void)setFormatString:(NSString *)formatString;
 @end
