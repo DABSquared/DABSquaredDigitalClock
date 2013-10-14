@@ -27,65 +27,65 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-  return [self initWithFrame:frame withOptions:DABSquaredDigitalClockViewOptionNone];
+    return [self initWithFrame:frame withOptions:DABSquaredDigitalClockViewOptionNone];
 }
 
 
 
 - (id)initWithFrame:(CGRect)frame withOptions:(DABSquaredDigitalClockViewOption)options
 {
-  self = [super initWithFrame:frame];
-  if (self) {
-    _calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    _options  = options;
-      
-    _formatString = @"hh:mm a";
-      
-    _dateFormatter = [[NSDateFormatter alloc] init];
-    [_dateFormatter setDateFormat:_formatString];
-      
-    CGRect imageViewFrame;
-    
-    if (DABSquaredDigitalClockViewOptionShowTitle & self.options) {
-      _clockTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height-15, frame.size.width, 15)];
-      [_clockTitleLabel setBackgroundColor:[UIColor clearColor]];
-      [_clockTitleLabel setTextAlignment:NSTextAlignmentCenter];
-      [self addSubview:self.clockTitleLabel];
-      imageViewFrame = CGRectMake(_clockTitleLabel.frame.size.height/2, 0, frame.size.width-_clockTitleLabel.frame.size.height, frame.size.height-_clockTitleLabel.frame.size.height);
-
-    } else {
-      imageViewFrame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+    self = [super initWithFrame:frame];
+    if (self) {
+        _calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        _options  = options;
+        
+        _formatString = @"hh:mm a";
+        
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setDateFormat:_formatString];
+        
+        CGRect imageViewFrame;
+        
+        if (DABSquaredDigitalClockViewOptionShowTitle & self.options) {
+            _clockTitleLabel = [[UILabel alloc] initWithFrame:CGRectIntegral(CGRectMake(0, frame.size.height-15, frame.size.width, 15))];
+            [_clockTitleLabel setBackgroundColor:[UIColor clearColor]];
+            [_clockTitleLabel setTextAlignment:NSTextAlignmentCenter];
+            [self addSubview:self.clockTitleLabel];
+            imageViewFrame = CGRectMake(_clockTitleLabel.frame.size.height/2, 0, frame.size.width-_clockTitleLabel.frame.size.height, frame.size.height-_clockTitleLabel.frame.size.height);
+            
+        } else {
+            imageViewFrame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+        }
+        
+        _clockLabel = [[UILabel alloc] initWithFrame:CGRectIntegral(imageViewFrame)];
+        [_clockLabel setBackgroundColor:[UIColor clearColor]];
+        [_clockLabel setMinimumFontSize:5.0f];
+        [_clockLabel setAdjustsFontSizeToFitWidth:YES];
+        [self addSubview:self.clockLabel];
     }
-      
-    _clockLabel = [[UILabel alloc] initWithFrame:imageViewFrame];
-      [_clockLabel setBackgroundColor:[UIColor clearColor]];
-      [_clockLabel setMinimumFontSize:5.0f];
-      [_clockLabel setAdjustsFontSizeToFitWidth:YES];
-      [self addSubview:self.clockLabel];
-  }
-  return self;
+    return self;
 }
 
 
 
 -(void)setClockTitle:(NSString *)clockTitle {
-   _clockTitle = clockTitle;
-   if (DABSquaredDigitalClockViewOptionShowTitle & self.options) {
-     [self.clockTitleLabel setText:self.clockTitle];
-   }
+    _clockTitle = clockTitle;
+    if (DABSquaredDigitalClockViewOptionShowTitle & self.options) {
+        [self.clockTitleLabel setText:self.clockTitle];
+    }
 }
 
 -(void)setClockTitleLabel:(UILabel *)clockTitleLabel {
     if(_clockTitleLabel) {
         [_clockTitleLabel removeFromSuperview];
     }
-   _clockTitleLabel = clockTitleLabel;
-  if (DABSquaredDigitalClockViewOptionShowTitle & self.options) {
-    CGRect clockViewViewFrame = CGRectMake(_clockTitleLabel.frame.size.height/2, 0, self.frame.size.width-_clockTitleLabel.frame.size.height, self.frame.size.height-_clockTitleLabel.frame.size.height);
-      [_clockTitleLabel setFrame:clockViewViewFrame];
-      [_clockTitleLabel removeFromSuperview];
-    [self addSubview:_clockTitleLabel];
-  }
+    _clockTitleLabel = clockTitleLabel;
+    if (DABSquaredDigitalClockViewOptionShowTitle & self.options) {
+        CGRect clockViewViewFrame = CGRectMake(_clockTitleLabel.frame.size.height/2, 0, self.frame.size.width-_clockTitleLabel.frame.size.height, self.frame.size.height-_clockTitleLabel.frame.size.height);
+        [_clockTitleLabel setFrame:clockViewViewFrame];
+        [_clockTitleLabel removeFromSuperview];
+        [self addSubview:_clockTitleLabel];
+    }
 }
 
 -(void)setClockLabel:(UILabel *)clockLabel {
@@ -115,16 +115,16 @@
 
 - (void)start
 {
-  if (self.clockUpdateTimer) {
-    return;
-  }
-  
+    if (self.clockUpdateTimer) {
+        return;
+    }
+    
 	self.clockUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                                           target:self
-                                                         selector:@selector(updateClockTime)
-                                                         userInfo:nil
-                                                          repeats:YES];
-  [self updateClockTime];
+                                                             target:self
+                                                           selector:@selector(updateClockTime)
+                                                           userInfo:nil
+                                                            repeats:YES];
+    [self updateClockTime];
 }
 
 - (void)stop
@@ -134,28 +134,28 @@
 
 - (void)updateClockWithTime:(NSDate *)time
 {
-  self.clockTime = time;
-  
-  void (^updateClocks)(void) = ^ {
-     self.clockLabel.text = [self.dateFormatter stringFromDate:self.clockTime];
-  };
-  
-
+    self.clockTime = time;
+    
+    void (^updateClocks)(void) = ^ {
+        self.clockLabel.text = [self.dateFormatter stringFromDate:self.clockTime];
+    };
+    
+    
     updateClocks();
-  
+    
 }
 
 - (void)updateClockTime
 {
-  self.clockTime = [NSDate date];
-  
-  void (^updateClocks)(void) = ^ {
-      self.clockLabel.text = [self.dateFormatter stringFromDate:self.clockTime];
-  };
-  
-
+    self.clockTime = [NSDate date];
+    
+    void (^updateClocks)(void) = ^ {
+        self.clockLabel.text = [self.dateFormatter stringFromDate:self.clockTime];
+    };
+    
+    
     updateClocks();
-
+    
 }
 
 
